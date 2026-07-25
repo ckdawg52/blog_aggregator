@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"log"
+	"os"
 
 	"github.com/ckdawg52/gator/internal/config"
 )
@@ -17,11 +17,11 @@ func main() {
 		log.Fatalf("error reading config: %v", err)
 	}
 
-	programState := &state {
-		cfg: &cfg
+	programState := &state{
+		cfg: &cfg,
 	}
 
-	cmds = commands {
+	cmds := commands{
 		registeredCommands: make(map[string]func(*state, command) error),
 	}
 	cmds.register("login", hanlderLogin)
@@ -30,11 +30,11 @@ func main() {
 		log.Fatal("Usage: cli <command> [args...]")
 	}
 
-	cmd.Name := os.Args [1]
-	cmd.Args := os.Args[2:]
+	cmdName := os.Args[1]
+	cmdArgs := os.Args[2:]
 
 	err = cmds.run(programState, command{Name: cmdName, Args: cmdArgs})
 	if err != nil {
-		log.Fatalf(err)
+		log.Fatal(err)
 	}
 }
