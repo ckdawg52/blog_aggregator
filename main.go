@@ -1,0 +1,40 @@
+package main
+
+import (
+	"os"
+	"log"
+
+	"github.com/ckdawg52/gator/internal/config"
+)
+
+type state struct {
+	cfg *config.Config
+}
+
+func main() {
+	cfg, err := config.Read()
+	if err != nil {
+		log.Fatalf("error reading config: %v", err)
+	}
+
+	programState := &state {
+		cfg: &cfg
+	}
+
+	cmds = commands {
+		registeredCommands: make(map[string]func(*state, command) error),
+	}
+	cmds.register("login", hanlderLogin)
+
+	if len(os.Args) < 2 {
+		log.Fatal("Usage: cli <command> [args...]")
+	}
+
+	cmd.Name := os.Args [1]
+	cmd.Args := os.Args[2:]
+
+	err = cmds.run(programState, command{Name: cmdName, Args: cmdArgs})
+	if err != nil {
+		log.Fatalf(err)
+	}
+}
